@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="it.unirc.pojo.purchase_item.Purchase_Item">
+		<composite-id
+			class="it.unirc.pojo.purchase_item.Purchase_ItemId" name="id">
+			<key-property name="idItem">
+				<column name="idItem" />
+			</key-property>
+			<key-property name="number">
+				<column name="number" />
+			</key-property>
+			<key-property name="year">
+				<column name="year" />
+			</key-property>
+		</composite-id>
+		<property name="quantity" />
+		<many-to-one class="it.unirc.pojo.purchase.Purchase"
+			name="purchase" not-null="true" cascade="save-update" insert="false"
+			update="false">
+			<column name="number" />
+			<column name="year" />
+		</many-to-one>
+		<many-to-one class="it.unirc.pojo.item.Item" name="item"
+			not-null="true" cascade="save-update" insert="false" update="false">
+			<column name="idItem" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

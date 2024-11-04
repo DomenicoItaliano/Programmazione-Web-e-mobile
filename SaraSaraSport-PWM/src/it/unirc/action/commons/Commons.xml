@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="Commons" namespace="/" extends="struts-default">
+
+		<action name="AboutUs" class="it.unirc.action.commons.AboutUs">
+			<result name="success">WEB-INF/commons/AboutUs.jsp</result>
+		</action>
+	</package>
+
+	<package name="Webshop" namespace="/"
+		extends="struts-default, json-default">
+
+		<action name="Items" class="it.unirc.action.commons.Items">
+			<result name="input">WEB-INF/commons/Items.jsp</result>
+			<result name="success">WEB-INF/commons/Items.jsp</result>
+
+
+		</action>
+
+		<action name="ItemOverview"
+			class="it.unirc.action.commons.ItemOverview">
+			<result>WEB-INF/commons/ItemOverview.jsp</result>
+		</action>
+		<action name="AddToCart"
+			class="it.unirc.action.commons.AddToCart">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">WEB-INF/ReservedArea/CartConfirmation.jsp
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">/ItemOverview</param>
+				<param name="idItem">${idItem}</param>
+				<param name="error">${true}</param>
+			</result>
+		</action>
+		<action name="Cart" class="it.unirc.action.commons.Cart">
+			<result name="success">WEB-INF/commons/Cart.jsp</result>
+		</action>
+		<action name="DeleteFromCart"
+			class="it.unirc.action.commons.DeleteFromCart">
+			<result name="success" type="redirect">/Cart</result>
+		</action>
+
+
+	</package>
+	<package name="Login" namespace="/" extends="struts-default">
+		<action name="LoginRequest"
+			class="it.unirc.action.commons.LoginRequest">
+			<result name="success">WEB-INF/commons/Login.jsp</result>
+		</action>
+
+
+		<action name="Login" class="it.unirc.action.commons.Login">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">WEB-INF/commons/Login.jsp</result>
+			<result type="redirect" name="CustomerArea">/CustomerReservedArea
+			</result>
+			<result type="redirect" name="AdminArea">/AdminReservedArea
+			</result>
+		</action>
+		<action name="Logout" class="it.unirc.action.commons.Logout">
+			<result name="success">WEB-INF/Home.jsp</result>
+		</action>
+
+
+
+	</package>
+
+	<package name="JSON" namespace="/" extends="json-default">
+		<action name="ItemsJSON"
+			class="it.unirc.action.commons.ItemsJSON">
+			<result name="success" type="json">
+				<param name="includeProperties">^items\[\d+\]\.idItem,
+
+ 
+^items\[\d+\]\.name,
+
+ 
+^items\[\d+\]\.price,
+
+ 
+^items\[\d+\]\.description,
+
+ 
+^items\[\d+\]\.quantity
+ 
+</param>
+			</result>
+		</action>
+	</package>
+
+
+
+
+
+
+
+</struts>

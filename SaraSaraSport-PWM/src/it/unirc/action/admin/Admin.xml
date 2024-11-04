@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="Admin" namespace="/" extends="struts-default">
+
+		<interceptors>
+
+			<interceptor name="InterceptorAdminAuth"
+				class="util.InterceptorAdminAuth" />
+
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="InterceptorAdminAuth" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="secureStack" />
+
+		<global-results>
+			<result name="login" type="redirect">../LoginRequest</result>
+		</global-results>
+
+		<action name="AdminsOverview"
+			class="it.unirc.action.admin.AdminsOverview">
+			<result name="success">/WEB-INF/AdminArea/AdminsOverview.jsp
+			</result>
+		</action>
+		<action name="CustomersOverview"
+			class="it.unirc.action.admin.CustomersOverview">
+			<result name="success">/WEB-INF/AdminArea/CustomersOverview.jsp
+			</result>
+		</action>
+
+		<action name="AdminReservedArea"
+			class="it.unirc.action.admin.AdminReservedArea">
+			<result name="success">/WEB-INF/AdminArea/AdminReservedArea.jsp</result>
+		</action>
+		<action name="ManageItems"
+			class="it.unirc.action.admin.ManageItems">
+			<result name="success">/WEB-INF/AdminArea/ManageItems.jsp
+			</result>
+		</action>
+		<action name="EditItemRequest"
+			class="it.unirc.action.admin.EditItemRequest">
+			<result name="success">/WEB-INF/AdminArea/EditItem.jsp
+			</result>
+		</action>
+		<action name="EditItem" class="it.unirc.action.admin.EditItem">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+
+		<action name="InsertItemUniformRequest"
+			class="it.unirc.action.admin.InsertItemUniformRequest">
+			<result name="success">/WEB-INF/AdminArea/InsertItemUniform.jsp
+			</result>
+		</action>
+		<action name="InsertItemUniform"
+			class="it.unirc.action.admin.InsertItemUniform">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">/WEB-INF/AdminArea/InsertItemUniform.jsp
+			</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+		<action name="InsertItemBagRequest"
+			class="it.unirc.action.admin.InsertItemBagRequest">
+			<result name="success">/WEB-INF/AdminArea/InsertItemBag.jsp
+			</result>
+		</action>
+		<action name="InsertItemBag"
+			class="it.unirc.action.admin.InsertItemBag">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">/WEB-INF/AdminArea/InsertItemBag.jsp
+			</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+		<action name="InsertItemShoesRequest"
+			class="it.unirc.action.admin.InsertItemShoesRequest">
+			<result name="success">/WEB-INF/AdminArea/InsertItemShoes.jsp
+			</result>
+		</action>
+		<action name="InsertItemShoes"
+			class="it.unirc.action.admin.InsertItemShoes">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">/WEB-INF/AdminArea/InsertItemShoes.jsp
+			</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+		<action name="InsertAdminRequest"
+			class="it.unirc.action.admin.InsertAdminRequest">
+			<result name="success">/WEB-INF/AdminArea/InsertAdmin.jsp
+			</result>
+		</action>
+		<action name="InsertCustomerRequest"
+			class="it.unirc.action.admin.InsertCustomerRequest">
+			<result name="success">/WEB-INF/AdminArea/InsertCustomer.jsp
+			</result>
+		</action>
+		<action name="InsertAdmin"
+			class="it.unirc.action.admin.InsertAdmin">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">/WEB-INF/AdminArea/InsertAdmin.jsp
+			</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+		<action name="InsertCustomer"
+			class="it.unirc.action.admin.InsertCustomer">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="input">/WEB-INF/AdminArea/InsertCustomer.jsp
+			</result>
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+		<action name="EditAdminRequest"
+			class="it.unirc.action.admin.EditAdminRequest">
+			<result name="success">/WEB-INF/AdminArea/EditAdmin.jsp
+			</result>
+		</action>
+
+		<action name="EditAdmin"
+			class="it.unirc.action.admin.EditAdmin">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">/WEB-INF/AdminArea/ReservedAdminArea.jsp
+			</result>
+			<result name="input">/WEB-INF/AdminArea/EditAdmin.jsp
+			</result>
+		</action>
+		<action name="EditCustomerRequest"
+			class="it.unirc.action.admin.EditCustomerRequest">
+			<result name="success">/WEB-INF/AdminArea/EditCustomer.jsp
+			</result>
+		</action>
+		<action name="EditCustomer"
+			class="it.unirc.action.admin.EditCustomer">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">/WEB-INF/AdminArea/ReservedAdminArea.jsp
+			</result>
+			<result name="input">/WEB-INF/AdminArea/EditCustomer.jsp
+			</result>
+		</action>
+		<action name="DeleteCustomer"
+			class="it.unirc.action.admin.DeleteCustomer">
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp
+			</result>
+		</action>
+	</package>
+
+</struts>

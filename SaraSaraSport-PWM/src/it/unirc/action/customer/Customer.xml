@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="Registration" namespace="/"
+		extends="struts-default">
+		<action name="RegistrationRequest"
+			class="it.unirc.action.customer.RegistrationRequest">
+			<result name="success">WEB-INF/commons/Registration.jsp</result>
+		</action>
+		<action name="Registration"
+			class="it.unirc.action.customer.Registration">
+			<result name="success">WEB-INF/commons/RegistrationOk.jsp</result>
+			<result name="input">WEB-INF/commons/Registration.jsp</result>
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">WEB-INF/commons/GenericError.jsp</result>
+		</action>
+	</package>
+
+
+	<package name="Customer" namespace="/" extends="struts-default">
+
+		<interceptors>
+
+			<interceptor name="InterceptorCustomerAuth"
+				class="util.InterceptorCustomerAuth" />
+
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="InterceptorCustomerAuth" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="secureStack" />
+
+		<global-results>
+			<result name="login" type="redirect">/LoginRequest</result>
+		</global-results>
+
+
+
+		<action name="CustomerReservedArea"
+			class="it.unirc.action.customer.CustomerReservedArea">
+			<result name="success">/WEB-INF/CustomerArea/CustomerReservedArea.jsp
+			</result>
+		</action>
+
+		<action name="EditRequest"
+			class="it.unirc.action.customer.EditRequest">
+			<result name="success">/WEB-INF/CustomerArea/EditRequest.jsp
+			</result>
+		</action>
+
+		<action name="EditCustomer"
+			class="it.unirc.action.customer.EditCustomer">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">/WEB-INF/CustomerArea/CustomerReservedArea.jsp
+			</result>
+			<result name="input">/WEB-INF/CustomerArea/EditCustomer.jsp
+			</result>
+		</action>
+		<action name="AddFundsCardBalance"
+			class="it.unirc.action.customer.AddFundsCardBalance">
+			<result>/WEB-INF/CustomerArea/AddFundsCardBalance.jsp</result>
+		</action>
+		<action name="Reload" class="it.unirc.action.customer.Reload">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+			<result name="success">/WEB-INF/CustomerArea/operationconfirmation.jsp
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">/AddFundsCardBalance</param>
+				<param name="idCustomer">${idCustomer}</param>
+				<param name="error">${true}</param>
+			</result>
+		</action>
+
+
+		<action name="OnlinePurchase"
+			class="it.unirc.action.customer.OnlinePurchase">
+			<result name="success">/WEB-INF/commons/GenericConfirmation.jsp</result>
+			<result name="input">/WEB-INF/commons/GenericError.jsp</result>
+			<interceptor-ref name="InterceptorAutCustomer" />
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/WEB-INF/commons/GenericError.jsp</result>
+
+		</action>
+
+		<action name="ViewInvoices"
+			class="it.unirc.action.customer.ViewInvoices">
+			<result name="success">/WEB-INF/CustomerArea/ViewInvoices.jsp
+			</result>
+		</action>
+
+
+		<action name="InvoiceDownload" class="it.unirc.action.customer.InvoiceDownload">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="Invoice.pdf"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+
+</struts>
+	

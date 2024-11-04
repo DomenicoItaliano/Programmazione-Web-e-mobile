@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="it.unirc.pojo.item.Item">
+		<id name="idItem">
+			<generator class="increment" />
+		</id>
+		<discriminator column="category" type="string" not-null="true" />
+		<property name="name" />
+		<property name="img" />
+		<property name="description" />
+		<property name="price" />		
+		<property name="category" />		
+		<property name="stockQuantity" />
+		
+		
+		
+		<many-to-one class="it.unirc.pojo.admin.Admin" name="Admin" 
+		not-null="true" lazy="false" cascade="none">
+		<column name="id_Admin" scale="0" precision="10"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>
